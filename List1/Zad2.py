@@ -18,7 +18,7 @@ def main(args):
     try:
         input_nums = to_int(input_nums)
     except:
-        print("Some input arguments are not numbers. Please put numbers")
+        print("Some input arguments are not integers. Please put integer numbers")
         sys.exit(0)
 
     if is_any_negative(input_nums):
