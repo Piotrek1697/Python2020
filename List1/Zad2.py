@@ -18,21 +18,21 @@ def main(args):
     try:
         input_nums = to_int(input_nums)
     except:
-        print("Some input arguments are not integers. Please put integer numbers")
-        sys.exit(0)
+        sys.exit("Some input arguments are not integers. Please put integer numbers")
 
     if is_any_negative(input_nums):
-        print("Input arguments must be greater then 0")
-        sys.exit(0)
+        sys.exit("Input arguments must be greater then 0")
     temp_inputs = input_nums.copy()
     temp_inputs.pop()  # Delete last element from list
     if not all(is_fibonacci_number(num) for num in temp_inputs):
-        print("There is no proper fibonacci number in input")
-        sys.exit(0)
+        sys.exit("There is no proper fibonacci number in input")
 
     if input_nums[0] > input_nums[1]:
-        print("y must be grater then x")
-        sys.exit(0)
+        sys.exit("y must be grater then x")
+
+    sub = input_nums[1] - input_nums[0]
+    if not (is_fibonacci_number(sub) and sub < input_nums[0]):
+        sys.exit("y must be next fibonacci number after x")
 
     fib = fibonacci(input_nums[0], input_nums[1], input_nums[2])
     print(fib)

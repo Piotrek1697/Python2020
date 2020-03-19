@@ -7,28 +7,28 @@ def main(args):
     file_name = args[0]
     while input_word != "quit" and input_word != "-q":
         input_word = input("Type word: ")
-        c = vowel_counter(input_word)
-        if file_exist(file_name):
-            with open(file_name, "r") as f:
-                content = f.readlines()
+        if input_word != "quit" and input_word != "-q":
+            c = vowel_counter(input_word)
+            if file_exists(file_name):
+                with open(file_name, "r") as f:
+                    content = f.readlines()
 
-            if word_exists_in_file(content, input_word):
-                print("This word already exists in file")
+                if word_exists_in_file(content, input_word):
+                    print("This word already exists in file")
+                else:
+                    with open(file_name, "a") as f:
+                        f.write(f'\n{input_word}\t{c}')
+
             else:
-                with open(file_name, "a") as f:
-                    f.write(f'\n{input_word}\t{c}')
-
-        else:
-            with open(file_name, "w") as f:
-                f.write(f'{input_word}\t{c}')
+                with open(file_name, "w") as f:
+                    f.write(f'{input_word}\t{c}')
     print("End")
-    # sys.exit(0)
 
 
 def word_exists_in_file(file_content, input_word):
     exists = False
     for line in file_content:
-        reg = re.findall("[a-zA-Z]", line)
+        reg = re.findall("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]", line)
         word = ''.join(reg)
         print(f'Parse word: {word}, input: {input_word}')
         exists = word == input_word
@@ -46,7 +46,7 @@ def vowel_counter(word):
     return count
 
 
-def file_exist(file_name):
+def file_exists(file_name):
     exists = True
     try:
         f = open(file_name, "r")
