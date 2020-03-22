@@ -1,6 +1,8 @@
 import sys
 import re
 
+from List1.tasks_utils import file_exists
+
 
 def main(args):
     input_word = ""
@@ -44,16 +46,6 @@ def vowel_counter(word):
     vowels_dict = {v: word.count(v) for v in vowels}
     count = sum(vowels_dict.values())
     return count
-
-
-def file_exists(file_name):
-    exists = True
-    try:
-        f = open(file_name, "r")
-        f.close()
-    except:
-        exists = False
-    return exists
 
 
 if __name__ == '__main__':
