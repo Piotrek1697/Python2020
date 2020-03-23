@@ -6,7 +6,7 @@ For input user must pass 3 numbers that are separated with comma (,) or space
 """
 import sys
 import math
-from List1.tasks_utils import *
+from List1.Piotr_Janus_236677_L1_tasks_utils import *
 
 
 def main(args):

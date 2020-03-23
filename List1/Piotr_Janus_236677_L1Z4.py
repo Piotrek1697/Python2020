@@ -1,6 +1,6 @@
 import sys
 import numpy
-from List1.tasks_utils import *
+from List1.Piotr_Janus_236677_L1_tasks_utils import *
 
 
 def main(args):

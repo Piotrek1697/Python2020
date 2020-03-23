@@ -4,7 +4,7 @@ This script allows user to find similar words from two chosen text files
 """
 
 import sys
-from List1.tasks_utils import file_exists
+from List1.Piotr_Janus_236677_L1_tasks_utils import file_exists
 
 
 def main(args):
