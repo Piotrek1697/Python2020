@@ -1,3 +1,9 @@
+"""Heron triangle area
+
+This script allows user to calculate triangle area with the Heron equation.
+
+For input user must pass 3 numbers that are separated with comma (,) or space
+"""
 import sys
 import math
 from List1.tasks_utils import *
@@ -21,13 +27,28 @@ def main(args):
 
     s = heron_area(input_nums[0], input_nums[1], input_nums[2])
     s = round(s, 3)
-    print("Traingle area:", s)
+    print("Triangle area:", s)
 
 
 def heron_area(a, b, c):
+    """Calculates triangle are with heron equation
+
+    Parameters
+    ----------
+    a : float
+        One of the triangle edge length
+    b : float
+        Second of the triangle edge length
+    c : float
+        Third of the triangle edge length
+
+    Returns
+    -------
+    float
+        Area of triangle
+    """
     p = 0.5 * (a + b + c)
-    S = math.sqrt(p * (p - a) * (p - b) * (p - c))
-    return S
+    return math.sqrt(p * (p - a) * (p - b) * (p - c))
 
 
 if __name__ == '__main__':

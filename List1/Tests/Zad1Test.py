@@ -1,6 +1,4 @@
 import unittest
-import io
-import sys
 from List1.Zad1 import *
 
 
