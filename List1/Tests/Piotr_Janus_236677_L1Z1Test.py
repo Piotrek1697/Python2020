@@ -1,5 +1,5 @@
 import unittest
-from List1.Zad1 import *
+from List1.Piotr_Janus_236677_L1Z1 import *
 
 
 class Zad1Test(unittest.TestCase):
