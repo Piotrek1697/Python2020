@@ -1,3 +1,12 @@
+"""Vowel counter
+
+This script allows user, to put words. Program counts vowels and put word into text file
+
+Input arguments
+---------------
+filename : filename.extension, ex. test_file.txt
+"""
+
 import sys
 import re
 
@@ -28,11 +37,27 @@ def main(args):
 
 
 def word_exists_in_file(file_content, input_word):
+    """Checks if input word exist in the passed file content
+
+    Find words in passed content and then compare it with input word.
+    Takes into consideration Polish characters (Only ANSI encoding).
+
+    Parameters
+    ----------
+    file_content : List[str]
+        Content of opened file
+    input_word : str
+        Checked word
+
+    Returns
+    -------
+    bool
+        Info if exists or not (True or False)
+    """
     exists = False
     for line in file_content:
         reg = re.findall("[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]", line)
         word = ''.join(reg)
-        print(f'Parse word: {word}, input: {input_word}')
         exists = word == input_word
         if exists:
             break
@@ -40,6 +65,17 @@ def word_exists_in_file(file_content, input_word):
 
 
 def vowel_counter(word):
+    """Counts vowels in word
+
+    Parameters
+    ----------
+    word : str
+        Input word in which user want to check vowels
+    Returns
+    -------
+    int
+        Vowels in word number
+    """
     vowels = ('a', 'e', 'i', 'o', 'u', 'y', 'ą', 'ę', 'ó')
     word = word.lower()
 
