@@ -1,6 +1,7 @@
 """Vowel counter
 
-This script allows user, to put words. Program counts vowels and put word into text file
+This script allows user, to put words. Program counts vowels and put word into text file.
+To quit type: quit or -q
 
 Input arguments
 ---------------
@@ -40,7 +41,7 @@ def word_exists_in_file(file_content, input_word):
     """Checks if input word exist in the passed file content
 
     Find words in passed content and then compare it with input word.
-    Takes into consideration Polish characters (Only ANSI encoding).
+    Takes into consideration Polish characters (Non UTF8 encoding).
 
     Parameters
     ----------
