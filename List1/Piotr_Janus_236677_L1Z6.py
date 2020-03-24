@@ -1,6 +1,11 @@
 """Similar words finder
 
 This script allows user to find similar words from two chosen text files
+
+Input arguments
+---------------
+filename1 : filename.extension, ex. test_file1.txt
+filename2 : filename.extension, ex. test_file2.txt
 """
 
 import sys
@@ -27,8 +32,7 @@ def main(args):
         words_list_1 = get_words(content_1, get_separator(content_1))
         words_list_2 = get_words(content_2, get_separator(content_2))
 
-        same_words = get_same_elements(words_list_1, words_list_2)
-        same_words = sorted(same_words)
+        same_words = get_same_elements_sorted(words_list_1, words_list_2)
 
         pretty_print(same_words)
     else:
@@ -61,7 +65,7 @@ def get_words(file_content, separator):
         [word_list.append(s.lower()) for line in file_content for s in
          line.split(separator)]  # If there is more then one line
     else:
-        word_list = file_content
+        word_list = [s.lower() for s in file_content]
 
     return word_list
 
@@ -85,12 +89,12 @@ def get_separator(file_content):
     separators = [' ', '\t', '\n']
     separator_dict = {}
     for line in file_content:
-        separator_dict.update({s: line.count(s) for s in separators})
+        separator_dict.update({s: (line.count(s) + separator_dict.get(s, 0)) for s in separators})
 
     return max(separator_dict, key=separator_dict.get)  # key=lambda k: separator_dict.get(k)
 
 
-def get_same_elements(*words_list):
+def get_same_elements_sorted(*words_list):
     """Finds same elements from several lists
 
     Parameters
@@ -103,7 +107,7 @@ def get_same_elements(*words_list):
     list
         List of similar words
     """
-    return list(set(words_list[0]).intersection(*words_list))
+    return sorted(list(set(words_list[0]).intersection(*words_list)))
 
 
 def pretty_print(words_list):
