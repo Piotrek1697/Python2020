@@ -1,25 +1,33 @@
 import sys
+from nltk import ngrams
 from List2.Piotr_Janus_236677_L2_tasks_utils import file_exists
 
 
 def main(args):
-    first_file = "test_file1.txt"
-    second_file = "test_file2.txt"
-    if file_exists(first_file) and file_exists(second_file):
-        with open(first_file, "r") as f:
-            content_1 = f.readlines()
-        with open(second_file, "r") as f:
-            content_2 = f.readlines()
-    else:
-        sys.exit("Such files doesn\'t exist.")
+    # first_file = "test_file1.txt"
+    # second_file = "test_file2.txt"
+    # if file_exists(first_file) and file_exists(second_file):
+    #     with open(first_file, "r") as f:
+    #         content_1 = f.readlines()
+    #     with open(second_file, "r") as f:
+    #         content_2 = f.readlines()
+    # else:
+    #     sys.exit("Such files doesn\'t exist.")
+    #
+    # content_1 = split_file(content_1, ' ')
+    # content_2 = split_file(content_2, ' ')
+    #
+    # sim = jaccard_similarity(content_1, content_2)
+    #
+    # print(sim)
+    # print(content_1)
 
-    content_1 = split_file(content_1, ' ')
-    content_2 = split_file(content_2, ' ')
+    sentence = 'this is a foo bar sentences and i want to ngramize it'
 
-    sim = jaccard_similarity(content_1, content_2)
-    
-    print(sim)
-    print(content_1)
+    n = 2
+    grams = ngrams(sentence.split(), n)
+    grams = list(grams)
+    print(grams)
 
 
 def split_file(content, separator):
@@ -28,6 +36,8 @@ def split_file(content, separator):
     if separator == ' ' or separator == '\t':
         [word_list.append(s.lower()) for line in content for s in
          line.split(separator)]  # If there is more then one line
+    else:
+        word_list = [s.lower() for s in content]
     return word_list
 
 
