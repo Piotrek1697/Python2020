@@ -43,11 +43,18 @@ class Polynomial:
                 print("*x%d" % (l - i), end='')
 
     def polynomial_value(self, x):
+        """
+        Calculates value polynomial value for specific x value.
+
+        Parameters
+        -----------
+        x : int
+            Value of variable in equation
+        """
         l = len(self.arrayOfCoeffs)
         return sum([self.arrayOfCoeffs[i - 1] * pow(x, l - i) for i in range(1, l + 1)])
 
     def polynomial_multiply(self, polynomial):
-        # Create list that length equals to greater degree in output polynomial
         results = [0] * (self.polynomial_degree() + polynomial.polynomial_degree() + 1)
         l = len(self.arrayOfCoeffs)
         l2 = len(polynomial.arrayOfCoeffs)
@@ -59,4 +66,40 @@ class Polynomial:
                 results[(l - i) + (l2 - j)] += num * num2
 
         results.reverse()
-        return results
+        return Polynomial(results)
+
+    def polynomial_add(self, polynomial):
+        results = [0] * (max(len(self.arrayOfCoeffs), len(polynomial.arrayOfCoeffs)))
+        temp1 = list(reversed(self.arrayOfCoeffs))
+        temp2 = list(reversed(polynomial.arrayOfCoeffs))
+        for i in range(0, len(results)):
+            el1 = el2 = 0
+            try:
+                el1 = temp1[i]
+            except IndexError:
+                pass
+            try:
+                el2 = temp2[i]
+            except IndexError:
+                pass
+            results[i] = el1 + el2
+        results.reverse()
+        return Polynomial(results)
+
+    def polynomial_subtract(self, polynomial):
+        results = [0] * (max(len(self.arrayOfCoeffs), len(polynomial.arrayOfCoeffs)))
+        temp1 = list(reversed(self.arrayOfCoeffs))
+        temp2 = list(reversed(polynomial.arrayOfCoeffs))
+        for i in range(0, len(results)):
+            el1 = el2 = 0
+            try:
+                el1 = temp1[i]
+            except IndexError:
+                pass
+            try:
+                el2 = temp2[i]
+            except IndexError:
+                pass
+            results[i] = el1 - el2
+        results.reverse()
+        return Polynomial(results)
