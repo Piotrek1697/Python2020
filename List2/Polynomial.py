@@ -1,3 +1,11 @@
+def _is_polynomial(polynomial):
+    """
+    Check if input variable is Polynomial type
+    """
+    if ~ isinstance(polynomial, Polynomial):
+        raise Exception('Input must be Polynomial')
+
+
 class Polynomial:
 
     def __init__(self, coeffs):
@@ -48,13 +56,23 @@ class Polynomial:
 
         Parameters
         -----------
-        x : int
+        x : float
             Value of variable in equation
         """
         l = len(self.arrayOfCoeffs)
         return sum([self.arrayOfCoeffs[i - 1] * pow(x, l - i) for i in range(1, l + 1)])
 
     def polynomial_multiply(self, polynomial):
+        """
+        Multiplies two polynomials
+
+        Parameters
+        ----------
+        polynomial: Polynomial
+                    Polynomial type variable
+        """
+        _is_polynomial(polynomial)
+
         results = [0] * (self.polynomial_degree() + polynomial.polynomial_degree() + 1)
         l = len(self.arrayOfCoeffs)
         l2 = len(polynomial.arrayOfCoeffs)
@@ -69,6 +87,16 @@ class Polynomial:
         return Polynomial(results)
 
     def polynomial_add(self, polynomial):
+        """
+        Adds two polynomials
+
+        Parameters
+        ----------
+        polynomial: Polynomial
+                    Polynomial type variable
+        """
+        _is_polynomial(polynomial)
+
         results = [0] * (max(len(self.arrayOfCoeffs), len(polynomial.arrayOfCoeffs)))
         temp1 = list(reversed(self.arrayOfCoeffs))
         temp2 = list(reversed(polynomial.arrayOfCoeffs))
@@ -87,6 +115,15 @@ class Polynomial:
         return Polynomial(results)
 
     def polynomial_subtract(self, polynomial):
+        """
+        Subtracts two polynomials
+
+        Parameters
+        ----------
+        polynomial: Polynomial
+                    Polynomial type variable
+        """
+        _is_polynomial(polynomial)
         results = [0] * (max(len(self.arrayOfCoeffs), len(polynomial.arrayOfCoeffs)))
         temp1 = list(reversed(self.arrayOfCoeffs))
         temp2 = list(reversed(polynomial.arrayOfCoeffs))

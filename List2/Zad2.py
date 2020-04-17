@@ -20,8 +20,6 @@ def main(args):
     print("\n||")
     p.polynomial_multiply(p2).polynomial_pretty_print()
 
-
-
     print("\nDODAWANIE")
 
     p.polynomial_pretty_print()
@@ -37,6 +35,13 @@ def main(args):
     p2.polynomial_pretty_print()
     print("\n||")
     p.polynomial_subtract(p2).polynomial_pretty_print()
+
+    # W tych przypadkach wyrzuci błąd
+    p_error = Polynomial([0, 0, 0, 2])
+    p_error2 = Polynomial([0, 2])
+    p_error3 = Polynomial([0, -6, 0, 3])
+    p_error4 = p.polynomial_multiply([1, 2, 3])
+    p_error5 = p.polynomial_multiply(0)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
