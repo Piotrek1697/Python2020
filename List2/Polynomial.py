@@ -2,8 +2,18 @@ def _is_polynomial(polynomial):
     """
     Check if input variable is Polynomial type
     """
-    if ~ isinstance(polynomial, Polynomial):
+    if not isinstance(polynomial, Polynomial):
         raise Exception('Input must be Polynomial')
+
+
+def _polynomial_degree_coeffs(coeffs):
+    degree = len(coeffs) - 1
+    for el in coeffs:
+        if el == 0:
+            degree = degree - 1
+        else:
+            break
+    return degree
 
 
 class Polynomial:
@@ -18,17 +28,14 @@ class Polynomial:
                 List of polynomial coefficients, where last element is free expression and first is expression next to
                 the biggest degree
         """
-        if len(coeffs) >= 2 and isinstance(coeffs, list) and (len(coeffs) - coeffs.count(0)) > 1:
+        if isinstance(coeffs, list) and _polynomial_degree_coeffs(coeffs) > 0:
             self.arrayOfCoeffs = coeffs
         else:
             raise Exception('Polynomial coefficients array must have at least two elements and degree must be greater '
                             'then 0')
 
     def polynomial_degree(self):
-        if self.arrayOfCoeffs[0] == 0:
-            return len(self.arrayOfCoeffs) - 2
-        else:
-            return len(self.arrayOfCoeffs) - 1
+        return _polynomial_degree_coeffs(self.arrayOfCoeffs)
 
     def polynomial_pretty_print(self):
         l = len(self.arrayOfCoeffs)
@@ -73,7 +80,7 @@ class Polynomial:
         """
         _is_polynomial(polynomial)
 
-        results = [0] * (self.polynomial_degree() + polynomial.polynomial_degree() + 1)
+        results = [0] * (len(self.arrayOfCoeffs) + len(polynomial.arrayOfCoeffs) + 1)
         l = len(self.arrayOfCoeffs)
         l2 = len(polynomial.arrayOfCoeffs)
         for i in range(1, l + 1):

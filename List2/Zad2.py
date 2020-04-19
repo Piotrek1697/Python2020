@@ -4,7 +4,7 @@ from List2.Polynomial import Polynomial
 
 
 def main(args):
-    pol = [2, 5, 1]
+    pol = [0, 0, 0, 0, 0]
     pol2 = [2, 4, 1, 7, 12, 546]
     p = Polynomial(pol)
     p2 = Polynomial(pol2)
@@ -37,11 +37,11 @@ def main(args):
     p.polynomial_subtract(p2).polynomial_pretty_print()
 
     # W tych przypadkach wyrzuci błąd
-    p_error = Polynomial([0, 0, 0, 2])
-    p_error2 = Polynomial([0, 2])
-    p_error3 = Polynomial([0, -6, 0, 3])
-    p_error4 = p.polynomial_multiply([1, 2, 3])
-    p_error5 = p.polynomial_multiply(0)
+    # p_error = Polynomial([0, 0, 0, 2])
+    # p_error2 = Polynomial([0, 2])
+    # p_error4 = p.polynomial_multiply([1, 2, 3])
+    # p_error5 = p.polynomial_multiply(0)
+
 
 if __name__ == '__main__':
     main(sys.argv[1:])
