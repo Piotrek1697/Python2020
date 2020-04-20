@@ -1,5 +1,20 @@
-import sys
+"""Text file comparer
 
+This script allows user, compare files and prints Jaccard index. Every text file is represents
+with n-gram.
+
+Input arguments
+---------------
+First file - file name with extension
+Second file - file name with extension
+Switch - work with 'letters' or 'words'
+Separators file - file name with extensions
+Ignore tokens - True or False
+*File to save - file name with extension *optional (if none, type: '-')
+*N - gram length - *optional, default n = 1 (if none, type '-')
+"""
+
+import sys
 from List2.Piotr_Janus_236677_L2_tasks_utils import file_exists
 
 
@@ -11,9 +26,9 @@ def main(args):
                  "First file - file name with extension\n"
                  "Second file - file name with extension\n"
                  "Switch - work with 'letters' or 'words'\n"
-                 "Separators file - file name with extensions"
-                 "Ignore tokens - True or False"
-                 "*File to save - file name with extension *optional (if none, type: '-')"
+                 "Separators file - file name with extensions\n"
+                 "Ignore tokens - True or False\n"
+                 "*File to save - file name with extension *optional (if none, type: '-')\n"
                  "*N - gram length - *optional, default n = 1 (if none, type '-')")
 
     first_file = args[0]
