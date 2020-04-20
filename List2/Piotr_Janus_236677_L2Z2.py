@@ -4,13 +4,15 @@ from List2.Polynomial import Polynomial
 
 
 def main(args):
-    pol = [0, 0, 0, 0, 0]
-    pol2 = [2, 4, 1, 7, 12, 546]
+    pol = [2, 3, 10545, 780, 1, 0]
+    pol2 = [2, 4, 1, 7, 12, 546, -54]
     p = Polynomial(pol)
     p2 = Polynomial(pol2)
 
+    print("Wartość wielomianu 1 (x=-2):", p.polynomial_value(-2))
     print("Wartość wielomianu 1 (x=2):", p.polynomial_value(2))
     print("Stopień wielomianu 1:", p.polynomial_degree())
+    print("Stopień wielomianu 2:", p2.polynomial_degree())
 
     print("\nMNOŻENIE")
 
