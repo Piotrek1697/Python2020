@@ -1,9 +1,7 @@
-import sys
-
 from List2.Polynomial import Polynomial
 
 
-def main(args):
+def main():
     pol = [2, 3, 10545, 780, 1, 0]
     pol2 = [2, 4, 1, 7, 12, 546, -54]
     p = Polynomial(pol)
@@ -46,4 +44,4 @@ def main(args):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    main()

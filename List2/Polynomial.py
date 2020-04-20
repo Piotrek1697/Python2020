@@ -1,12 +1,38 @@
 def _is_polynomial(polynomial):
     """
     Check if input variable is Polynomial type
+
+    Parameters
+    ----------
+    polynomial : any type
+
+    Returns
+    -------
+    bool
+        Information (True or False) about input type.
+
+    Raises:
+        Exception: if input value type is not Polynomial.
     """
     if not isinstance(polynomial, Polynomial):
         raise Exception('Input must be Polynomial')
 
 
 def _polynomial_degree_coeffs(coeffs):
+    """
+    Calculates degree of Polynomial based on coefficients list
+
+    Parameters
+    ----------
+    coeffs : list[float]
+        List of polynomial coefficients, where last element is free expression and first is expression next to
+        the biggest degree
+
+    Returns
+    -------
+    int
+        Degree of polynomial
+    """
     degree = len(coeffs) - 1
     for el in coeffs:
         if el == 0:
@@ -24,7 +50,7 @@ class Polynomial:
 
         Parameters
         -----------
-        coeffs : list
+        coeffs : list[float]
                 List of polynomial coefficients, where last element is free expression and first is expression next to
                 the biggest degree
         """
@@ -35,9 +61,19 @@ class Polynomial:
                             'then 0')
 
     def polynomial_degree(self):
+        """
+        Public method that returns polynomial degree
+
+        See also:
+            _polynomial_degree_coeffs(coeffs)
+        """
         return _polynomial_degree_coeffs(self.arrayOfCoeffs)
 
     def polynomial_pretty_print(self):
+        """
+        Prints text version of polynomial like:
+        an*xn + an-1*xn-1 + a1*x + a0
+        """
         l = len(self.arrayOfCoeffs)
         for i in range(1, l + 1):
             num = self.arrayOfCoeffs[i - 1]
@@ -77,6 +113,11 @@ class Polynomial:
         ----------
         polynomial: Polynomial
                     Polynomial type variable
+
+        Returns
+        -------
+        Polynomial
+            Multiplication result
         """
         _is_polynomial(polynomial)
 
@@ -101,6 +142,11 @@ class Polynomial:
         ----------
         polynomial: Polynomial
                     Polynomial type variable
+
+        Returns
+        -------
+        Polynomial
+            Sum result
         """
         _is_polynomial(polynomial)
 
@@ -129,6 +175,11 @@ class Polynomial:
         ----------
         polynomial: Polynomial
                     Polynomial type variable
+
+        Returns
+        -------
+        Polynomial
+            Subtract result
         """
         _is_polynomial(polynomial)
         results = [0] * (max(len(self.arrayOfCoeffs), len(polynomial.arrayOfCoeffs)))
