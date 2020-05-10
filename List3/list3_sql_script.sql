@@ -25,7 +25,7 @@ VALUE ('988989','Jan Nowak','Politechnika Wrocławska','Wrocław','2020-04-29','
 #Zad2
 USE dostawy;
 CREATE TABLE IF NOT EXISTS kurierzy (
-kurier_ID INT NOT NULL,
+kurier_ID INT NOT NULL auto_increment,
 kurier_miasto varchar(100) NOT NULL,
 kurier_czyDostepny varchar(3),
 kurier_aktualnaPrzesylka int,

@@ -19,7 +19,9 @@ class DBconnector:
 
         cursor = mydb.cursor()
         cursor.execute(query)
-        return cursor.fetchall()
+        data = cursor.fetchall()
+        mydb.close()
+        return data
 
     @staticmethod
     def fetch_query_parameters(query, val):
@@ -27,7 +29,9 @@ class DBconnector:
 
         cursor = mydb.cursor()
         cursor.execute(query, val)
-        return cursor.fetchall()
+        data = cursor.fetchall()
+        mydb.close()
+        return data
 
     @staticmethod
     def execute_query_insert(query, val):
@@ -36,6 +40,7 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.execute(query, val)
         mydb.commit()
+        mydb.close()
 
     @staticmethod
     def execute_query_insert_many(query, val):
@@ -44,3 +49,15 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.executemany(query, val)
         mydb.commit()
+        mydb.close()
+
+    @staticmethod
+    def execute_query_update(query, val):
+        mydb = connection()
+
+        cursor = mydb.cursor()
+        cursor.execute(query, val)
+        mydb.commit()
+        rows_affected = cursor.rowcount
+        mydb.close()
+        return rows_affected
