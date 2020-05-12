@@ -20,6 +20,7 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.execute(query)
         data = cursor.fetchall()
+        cursor.close()
         mydb.close()
         return data
 
@@ -30,6 +31,17 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.execute(query, val)
         data = cursor.fetchall()
+        cursor.close()
+        mydb.close()
+        return data
+
+    @staticmethod
+    def call_procedure(procedure_name, args):
+        mydb = connection()
+        cursor = mydb.cursor()
+        cursor.callproc(procedure_name, args)
+        data = cursor.stored_results()
+        cursor.close()
         mydb.close()
         return data
 
@@ -40,6 +52,7 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.execute(query, val)
         mydb.commit()
+        cursor.close()
         mydb.close()
 
     @staticmethod
@@ -49,6 +62,7 @@ class DBconnector:
         cursor = mydb.cursor()
         cursor.executemany(query, val)
         mydb.commit()
+        cursor.close()
         mydb.close()
 
     @staticmethod
@@ -59,5 +73,6 @@ class DBconnector:
         cursor.execute(query, val)
         mydb.commit()
         rows_affected = cursor.rowcount
+        cursor.close()
         mydb.close()
         return rows_affected
