@@ -42,6 +42,13 @@ class ParcelDAO:
         return _wrap_in_parcel_list(rows)
 
     @staticmethod
+    def select_by_city(city):
+        sql = "SELECT * FROM dostawy.przesylki WHERE przesylka_miastoDostarczenia = %s;"
+        val = (city,)
+        rows = DBconnector.fetch_query_parameters(sql, val)
+        return _wrap_in_parcel_list(rows)
+
+    @staticmethod
     def select_by_sent_date(begin_date, end_date):
         sql = "SELECT * FROM dostawy.przesylki WHERE przesylka_dataNadania > %s AND przesylka_dataNadania < %s;"
         val = (begin_date, end_date)
