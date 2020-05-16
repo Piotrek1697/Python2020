@@ -1,17 +1,25 @@
+"""Database connector
+
+This script allows user to connect to localhost database 'dostawy'. User can:
+ - execute insert queries to add parcel to database,
+ - assign free courier to parcel,
+ - confirm parcel delivery,
+ - check status of parcel,
+ - filter parcels by status, receiver, sender, delivery city, sent/receive date
+"""
+
 from List3.Entity.ParcelEntity import ParcelEntity
 from List3.DAO.ParcelDAO import ParcelDAO
 from List3.DAO.CourierDAO import CourierDAO
 from termcolor import colored
 import datetime
-
-import textwrap
+import sys
 
 
 def main():
     input_word = ''
     while input_word != "quit" and input_word != "-q":
-        input_word = input("What do you want to do with parcel? Please type:\n" +
-                           colored("parcel sent", 'green') +
+        input_word = input(colored("parcel sent", 'green') +
                            " - Sent your parcel (default one, for multiply add alias -m\n" +
                            colored("parcel add courier", 'green') +
                            " - Assign free courier to parcel\n" +
@@ -35,11 +43,15 @@ def main():
                     print("You must put at least one parcel!\n")
                 else:
                     ParcelDAO.insert_many(parcel_list)
+                    parc = ParcelDAO.select_last()
+                    parcels_pretty_print(parc)
             else:
                 parcel_str = input("Please type parcel info like:\n"
                                    "Sender,Receiver,Delivery City\n")
                 p = ParcelEntity.parse_parcel_sent(parcel_str)
                 ParcelDAO.insert(p)
+                parc = ParcelDAO.select_last()
+                parcels_pretty_print(parc)
         elif input_word == 'parcel add courier':
             parcel_id = input("Please type parcel ID:\n")
             row_count = CourierDAO.update_free_courier_parcel(parcel_id)
@@ -74,10 +86,11 @@ def main():
                         print(colored(f"Parcel has been sent in {parcel.sent_date}\n", 'blue'))
         elif 'parcel filter' in input_word:
             if '-status' in input_word:
-                parcel_status = input('Please type parcel status to start filtering:\n')
-                parcel_status.strip()
-                parcel_status.lower()
-                if parcel_status in ('delivered', 'send', 'passed to courier'):
+                parcel_status = input('Please type parcel status to start filtering (delivered, sent, '
+                                      'passed to courier):\n')
+                parcel_status = parcel_status.strip()
+                parcel_status = parcel_status.lower()
+                if parcel_status in ('delivered', 'sent', 'passed to courier'):
                     parcels = ParcelDAO.select_by_status(parcel_status)
                     parcels_pretty_print(parcels)
                 else:
@@ -105,16 +118,19 @@ def main():
                     dates = input('Date from,Date to\n')
                     date_list = dates.split(',')
                     if len(date_list) != 2:
-                        print(colored('There is less/to much input dates'))
+                        print(colored('There is less/to much input dates','red'))
                     else:
                         parsed_dates = parse_dates(date_list)
-                        parcels = ParcelDAO.select_by_sent_date(parsed_dates[0], parsed_dates[1])
-                        parcels_pretty_print(parcels)
+                        if len(parsed_dates) < 2:
+                            print(colored('Parsing date went wrong. Try again', 'red'))
+                        else:
+                            parcels = ParcelDAO.select_by_sent_date(parsed_dates[0], parsed_dates[1])
+                            parcels_pretty_print(parcels)
                 if 'receive' in input_word:
                     dates = input('Date from,Date to\n')
                     date_list = dates.split(',')
                     if len(date_list) != 2:
-                        print(colored('There is less/to much input dates'))
+                        print(colored('There is less/to much input dates', 'red'))
                     else:
                         parsed_dates = parse_dates(date_list)
                         parcels = ParcelDAO.select_by_receive_date(parsed_dates[0], parsed_dates[1])
@@ -127,7 +143,7 @@ def parse_dates(date_list):
         try:
             out_dates.append(datetime.datetime.strptime(d, '%Y-%m-%d'))
         except ValueError:
-            print('Wrong date format. Please type date in format yyyy-mm-dd')
+            print(colored('Wrong date format. Please type date in format yyyy-mm-dd','red'))
     return out_dates
 
 

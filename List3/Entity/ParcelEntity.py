@@ -1,3 +1,7 @@
+"""
+Class that represents Parcel entity
+"""
+
 from datetime import date
 
 
@@ -10,6 +14,18 @@ class ParcelEntity:
     delivery_date = None
 
     def __init__(self, id_parcel, sender, receiver, delivery_city, sent_date, delivery_date):
+        """
+        Initialize ParcelEntity class
+
+        Parameters
+        -----------
+        id_parcel : int
+        sender : str
+        receiver : str
+        delivery_city : str
+        sent_date : date
+        delivery_date : date
+        """
         self.ID = id_parcel
         self.sender = sender
         self.receiver = receiver
@@ -20,9 +36,15 @@ class ParcelEntity:
     @staticmethod
     def parse_parcel_sent(parcel_str):
         """
-         Parameters
-            -----------
-            parcel_str : str
+        Parse string that is like: Sender,Receiver,Delivery City. To object, send date added (date.now)
+
+        Parameters
+        -----------
+        parcel_str : str
+
+        Returns
+        --------
+        parcel : ParcelEntity
         """
         parc = parcel_str.split(',')
         if len(parc) != 3:
@@ -36,5 +58,3 @@ class ParcelEntity:
                f"Deliver City: {self.delivery_city}\n" \
                f"Parcel sent date: {self.sent_date}\n" \
                f"Parcel delivery: {self.delivery_date}"
-
-

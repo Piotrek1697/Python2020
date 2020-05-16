@@ -1,4 +1,6 @@
-from List3.Entity.ParcelEntity import ParcelEntity
+"""
+Class that represents Courier entity
+"""
 
 
 class CourierEntity:
@@ -8,6 +10,16 @@ class CourierEntity:
     parcel = None
 
     def __init__(self, courier_id, city, available, parcel):
+        """
+        Initialize CourierEntity class
+
+        Parameters
+        ----------
+        courier_id : int
+        city : str
+        available : str
+        parcel : ParcelEntity
+        """
         self.ID = courier_id
         self.city = city
         self.isAvailable = available
