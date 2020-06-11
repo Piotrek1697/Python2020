@@ -81,8 +81,3 @@ JOIN sprzedaz.zamowienia z ON z.zamowienie_id = pz.zamowienie_id;
 SELECT (sum(p.cena_jednostkowa * pz.ilosc)/count(p.produkt_id)) AS `Średnia wartość zamówienia` 
 FROM sprzedaz.produkty_zamowien pz
 JOIN sprzedaz.produkty p ON p.produkt_id = pz.produkt_id;
-
-CALL add_order_if_can(9,3,'Piotr Janus');
-
-
-SELECT DISTINCT p.produkt_id, p.nazwa, (SELECT SUM(pz.ilosc) FROM produkty_zamowien pz WHERE pz.produkt_id = p.produkt_id) AS `stan_zamowienia`, cena_jednostkowa FROM sprzedaz.produkty p;

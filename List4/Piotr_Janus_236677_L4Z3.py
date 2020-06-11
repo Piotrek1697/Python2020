@@ -1,3 +1,11 @@
+"""Database connector
+
+This script allows user to connect to localhost database 'sprzedaz'. User can:
+ - Order product,
+ - Create order,
+ - Check products quantity in magazine or in orders.
+"""
+
 import mysql
 from termcolor import colored
 from List4.DAO.OrderDAO import OrderDAO
@@ -45,12 +53,15 @@ def main():
                 if len(order_list) == 0:
                     print("You must put at least one order!\n")
                 else:
+                    orders_count = 0
                     for o in order_list:
+                        orders_count = orders_count + 1
                         try:
                             OrderDAO.insert(o[0], o[1], order_id)
                         except mysql.connector.Error as err:
                             print(colored(f"{err}\n", 'red'))
-                    od_list = OrdersProductsDAO.select_last(len(order_list))
+                            orders_count = orders_count - 1
+                    od_list = OrdersProductsDAO.select_last(orders_count)
                     orders_products_pretty_print(od_list)
             else:
                 orders = input("Please type order info like:\n"

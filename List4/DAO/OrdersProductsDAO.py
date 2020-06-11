@@ -1,3 +1,6 @@
+"""
+Class that helps executing queries on OrdersProducts Table (producy_zamowien)
+"""
 from List4.DBconnector import DBconnector
 from List4.Entity.OrderEntity import OrderEntity
 from List4.Entity.OrdesProductsEntity import OrdersProductsEntity
@@ -19,6 +22,13 @@ class OrdersProductsDAO:
 
     @staticmethod
     def select_all():
+        """
+        Select all from (producy_zamowien)
+
+        Returns
+        -------
+        order_list : List[OrderProductsEntity]
+        """
         sql = 'SELECT * FROM sprzedaz.produkty_zamowien pz ' \
               'JOIN sprzedaz.produkty p on pz.produkt_id = p.produkt_id ' \
               'JOIN sprzedaz.zamowienia z on pz.zamowienie_id = z.zamowienie_id'
@@ -27,6 +37,13 @@ class OrdersProductsDAO:
 
     @staticmethod
     def select_last(count):
+        """
+        Select last element from table
+
+        Returns
+        -------
+        order_list : List[OrderProductsEntity]
+        """
         sql = 'SELECT * FROM sprzedaz.produkty_zamowien pz ' \
               'JOIN sprzedaz.produkty p on pz.produkt_id = p.produkt_id ' \
               'JOIN sprzedaz.zamowienia z on pz.zamowienie_id = z.zamowienie_id '\

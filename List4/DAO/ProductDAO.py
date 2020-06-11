@@ -1,3 +1,7 @@
+"""
+Class that helps executing queries on Products table (produkty)
+"""
+
 from List4.DBconnector import DBconnector
 from List4.Entity.ProductEntity import ProductEntity
 
@@ -14,12 +18,26 @@ class ProductDAO:
 
     @staticmethod
     def select_all():
+        """
+        Select all from products table (produkty)
+
+        Returns
+        -------
+        order_list : List[ProductDAO]
+        """
         sql = 'SELECT * FROM sprzedaz.produkty'
         rows = DBconnector.fetch_query(sql)
         return _wrap_in_order_list(rows)
 
     @staticmethod
     def select_products_order_qunatity():
+        """
+        Select quantity of each product from orders
+
+        Returns
+        -------
+        order_list : List[ProductDAO]
+        """
         sql = "SELECT DISTINCT p.produkt_id, p.nazwa, " \
               "(SELECT SUM(pz.ilosc) FROM produkty_zamowien pz WHERE pz.produkt_id = p.produkt_id) AS `stan_zamowienia`" \
               ", cena_jednostkowa " \

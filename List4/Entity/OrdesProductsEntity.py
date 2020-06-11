@@ -1,3 +1,8 @@
+"""
+Class that represents OrdersProducts entity
+"""
+
+
 class OrdersProductsEntity:
     ID = None
     order = None
@@ -5,6 +10,16 @@ class OrdersProductsEntity:
     order_quantity = None
 
     def __init__(self, id, order, product, quantity):
+        """
+        Initialize OrdersProductsEntity class
+
+        Parameters
+        ----------
+        id : int
+        order : OrderEntity
+        product : ProductEntity
+        quantity : int
+        """
         self.ID = id
         self.order = order
         self.product = product

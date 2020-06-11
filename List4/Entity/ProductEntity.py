@@ -1,3 +1,8 @@
+"""
+Class that represents Product entity
+"""
+
+
 class ProductEntity:
     ID = None
     name = ''
@@ -5,6 +10,16 @@ class ProductEntity:
     price = None
 
     def __init__(self, product_id, product_name, product_quantity, product_price):
+        """
+        Initialize ProductEntity class
+
+        Parameters
+        ----------
+        product_id : int
+        product_name : str
+        product_quantity : int
+        product_price : int
+        """
         self.ID = product_id
         self.name = product_name
         self.magazine_quantity = product_quantity
