@@ -13,36 +13,15 @@ def _wrap_in_order_list(rows):
 class OrderDAO:
 
     @staticmethod
-    def select_all():
-        sql = 'SELECT * FROM sprzedaz.zamowienia'
-        rows = DBconnector.fetch_query(sql)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
     def select_last():
         sql = 'SELECT * FROM sprzedaz.zamowienia ORDER by zamowienie_id DESC LIMIT 1;'
         rows = DBconnector.fetch_query(sql)
         return _wrap_in_order_list(rows)
 
     @staticmethod
-    def select_by_receiver_name_like(part_name):
-        part_name = '%' + part_name + '%'
-        sql = 'SELECT * FROM sprzedaz.zamowienia WHERE odbiorca LIKE %s'
-        val = (part_name,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
     def select_by_id(order_id):
         sql = "SELECT * FROM sprzedaz.zamowienia WHERE zamowienie_id = %s;"
         val = (order_id,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
-    def select_by_receiver(receiver_name):
-        sql = "SELECT * FROM sprzedaz.zamowienia WHERE odbiorca = %s;"
-        val = (receiver_name,)
         rows = DBconnector.fetch_query_parameters(sql, val)
         return _wrap_in_order_list(rows)
 

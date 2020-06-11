@@ -1,8 +1,7 @@
 import mysql
 from termcolor import colored
-import datetime
 from List4.DAO.OrderDAO import OrderDAO
-from List4.Entity.OrderEntity import OrderEntity
+from List4.DAO.ProductDAO import ProductDAO
 from List4.DAO.OrdersProductsDAO import OrdersProductsDAO
 
 
@@ -11,7 +10,7 @@ def main():
 
     while input_word != "quit" and input_word != "-q":
         input_word = input(colored("product order", 'green') +
-                           " - order product (default one, for multiply add alias -m\n" +
+                           " - order product (default one, for multiply add alias -m)\n" +
                            colored("product check", 'green') +
                            " - check products quantity (-magazine, -orders)\n")
         input_word.strip()
@@ -63,6 +62,13 @@ def main():
                     orders_products_pretty_print(od_list)
                 except mysql.connector.Error as err:
                     print(colored(f"{err}\n", 'red'))
+        if 'product check' in input_word:
+            if '-magazine' in input_word:
+                products_list = ProductDAO.select_all()
+                product_pretty_print(products_list, 'Magazine Quantity')
+            elif '-orders' in input_word:
+                products_list = ProductDAO.select_products_order_qunatity()
+                product_pretty_print(products_list, 'Products in orders')
 
 
 def parse_order(order_string):
@@ -87,35 +93,19 @@ def order_pretty_print(order_list):
     print()
 
 
-def orders_products_pretty_print_magazine(order_products_list):
+def product_pretty_print(product_list, header_string):
     space = ' '
-    headers = ['ID', 'Product name', 'Magazine quantity']
+    headers = ['ID', 'Product name', header_string]
     spaces = [10, 45, 30]
     print(colored(
         f'{headers[0]}{(spaces[0] - len(headers[0])) * space}'
         f'{headers[1]}{(spaces[1] - len(headers[1])) * space}'
         f'{headers[2]}{(spaces[2] - len(headers[2])) * space}', 'blue'))
-    for op in order_products_list:
-        a = len(str(op.ID))
-        print(f'{op.ID}{(spaces[0] - len(str(op.ID))) * space}'
-              f'{op.product.name}{(spaces[1] - len(op.product.name)) * space}'
-              f'{op.product.magazine_quantity}{(spaces[2] - len(str(op.product.magazine_quantity))) * space}')
-    print()
-
-
-def orders_products_pretty_print_order(order_products_list):
-    space = ' '
-    headers = ['ID', 'Product name', 'Order quantity']
-    spaces = [10, 45, 30]
-    print(colored(
-        f'{headers[0]}{(spaces[0] - len(headers[0])) * space}'
-        f'{headers[1]}{(spaces[1] - len(headers[1])) * space}'
-        f'{headers[2]}{(spaces[2] - len(headers[2])) * space}', 'blue'))
-    for op in order_products_list:
-        a = len(str(op.ID))
-        print(f'{op.ID}{(spaces[0] - len(str(op.ID))) * space}'
-              f'{op.product.name}{(spaces[1] - len(op.product.name)) * space}'
-              f'{op.order_quantity}{(spaces[2] - len(str(op.order_quantity))) * space}')
+    for p in product_list:
+        a = len(str(p.ID))
+        print(f'{p.ID}{(spaces[0] - len(str(p.ID))) * space}'
+              f'{p.name}{(spaces[1] - len(p.name)) * space}'
+              f'{p.magazine_quantity}{(spaces[2] - len(str(p.magazine_quantity))) * space}')
     print()
 
 

@@ -34,25 +34,3 @@ class OrdersProductsDAO:
         val = (count,)
         rows = DBconnector.fetch_query_parameters(sql, val)
         return _wrap_in_orders_products_list(rows)
-
-    @staticmethod
-    def select_by_name_like(part_name):
-        part_name = '%' + part_name + '%'
-        sql = 'SELECT * FROM sprzedaz.produkty WHERE nazwa LIKE %s'
-        val = (part_name,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_orders_products_list(rows)
-
-    @staticmethod
-    def select_by_id(product_id):
-        sql = "SELECT * FROM sprzedaz.produkty WHERE produkt_id = %s;"
-        val = (product_id,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_orders_products_list(rows)
-
-    @staticmethod
-    def select_by_name(product_name):
-        sql = "SELECT * FROM sprzedaz.produkty WHERE nazwa = %s;"
-        val = (product_name,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_orders_products_list(rows)

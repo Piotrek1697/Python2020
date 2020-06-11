@@ -19,31 +19,11 @@ class ProductDAO:
         return _wrap_in_order_list(rows)
 
     @staticmethod
-    def select_last():
+    def select_products_order_qunatity():
+        sql = "SELECT DISTINCT p.produkt_id, p.nazwa, " \
+              "(SELECT SUM(pz.ilosc) FROM produkty_zamowien pz WHERE pz.produkt_id = p.produkt_id) AS `stan_zamowienia`" \
+              ", cena_jednostkowa " \
+              "FROM sprzedaz.produkty p;"
 
-        sql = 'SELECT * FROM sprzedaz.produkty ORDER by produkt_id DESC LIMIT 1;'
         rows = DBconnector.fetch_query(sql)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
-    def select_by_name_like(part_name):
-        part_name = '%' + part_name + '%'
-        sql = 'SELECT * FROM sprzedaz.produkty WHERE nazwa LIKE %s'
-        val = (part_name,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
-    def select_by_id(product_id):
-        sql = "SELECT * FROM sprzedaz.produkty WHERE produkt_id = %s;"
-        val = (product_id,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
-        return _wrap_in_order_list(rows)
-
-    @staticmethod
-    def select_by_name(product_name):
-
-        sql = "SELECT * FROM sprzedaz.produkty WHERE nazwa = %s;"
-        val = (product_name,)
-        rows = DBconnector.fetch_query_parameters(sql, val)
         return _wrap_in_order_list(rows)
